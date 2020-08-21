@@ -34,7 +34,6 @@ namespace Simline2
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="env"></param>
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -49,6 +48,7 @@ namespace Simline2
         /// This method gets called by the runtime. Use this method to add services to the container.
         /// </summary>
         /// <param name="services"></param>
+        [Obsolete]
         public void ConfigureServices(IServiceCollection services)
         {
 

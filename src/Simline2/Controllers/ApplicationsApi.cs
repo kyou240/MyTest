@@ -168,7 +168,7 @@ namespace Simline2.Controllers
             //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(404, default(HTTP404));
             string exampleJson = null;
-            exampleJson = "{\r\n  \"shogyoHojinKubun\" : \"9\",\r\n  \"uketsukeBangos\" : [ {\r\n    \"edaban1\" : \"12\",\r\n    \"edaban2\" : \"12\",\r\n    \"homban\" : \"123456\"\r\n  }, {\r\n    \"edaban1\" : \"12\",\r\n    \"edaban2\" : \"12\",\r\n    \"homban\" : \"123456\"\r\n  } ],\r\n  \"juryoTsuchi\" : \"<center><table width=\\"100%\\" align=\\"CENTER\\" border=\\"0\\" cellspacing=\\"10\\"><tbody><tr><td align=\\"CENTER\\"><h1>受付のお知らせ</h1></td></tr></tbody></table><hr /></center>\"\r\n}";
+            exampleJson = "{\r\n  \"shogyoHojinKubun\" : \"9\",\r\n  \"uketsukeBangos\" : [ {\r\n    \"edaban1\" : \"12\",\r\n    \"edaban2\" : \"12\",\r\n    \"homban\" : \"123456\"\r\n  }, {\r\n    \"edaban1\" : \"12\",\r\n    \"edaban2\" : \"12\",\r\n    \"homban\" : \"123456\"\r\n  } ],\r\n  \"juryoTsuchi\" : \"<center><table width=\\\"100%\\\" align=\\\"CENTER\\\" border=\\\"0\\\" cellspacing=\\\"10\\\"><tbody><tr><td align=\\\"CENTER\\\"><h1>受付のお知らせ</h1></td></tr></tbody></table><hr /></center>\"\r\n}";
             
             var example = exampleJson != null
             ? JsonConvert.DeserializeObject<JuryoJohoResponse>(exampleJson)
@@ -495,7 +495,7 @@ namespace Simline2.Controllers
         [Route("/rs/api/v1/applications/submit_douji.json")]
         [ValidateModelState]
         [SwaggerOperation("ApplicationsSubmitDoujiJsonPost")]
-        [SwaggerResponse(statusCode: 200, type: typeof(SubmitDoujiResponse), description: "処理が正常終了し、受信したリクエストの\&quot;seq\&quot;と\&quot;total\&quot;の値が一致していない場合、同時申請送信レスポンスにデータを設定せずに返却する。   処理が正常終了し、受信したリクエストの\&quot;seq\&quot;と\&quot;total\&quot;の値が一致している場合、同時申請送信レスポンスに申請された件数だけデータを設定し返却する。 ")]
+        [SwaggerResponse(statusCode: 200, type: typeof(SubmitDoujiResponse), description: "処理が正常終了し、受信したリクエストの\\&quot;seq\\&quot;と\\&quot;total\\&quot;の値が一致していない場合、同時申請送信レスポンスにデータを設定せずに返却する。   処理が正常終了し、受信したリクエストの\\&quot;seq\\&quot;と\\&quot;total\\&quot;の値が一致している場合、同時申請送信レスポンスに申請された件数だけデータを設定し返却する。 ")]
         [SwaggerResponse(statusCode: 400, type: typeof(SubmitDoujiErrorResponse), description: "パラメータに誤りがある場合等に同時申請送信エラーレスポンスを返却する。 ")]
         [SwaggerResponse(statusCode: 401, type: typeof(HTTP401), description: "ユーザIDやパスワードに誤りがある場合等に認証エラーを返却する。 ")]
         public virtual IActionResult ApplicationsSubmitDoujiJsonPost([FromBody]SubmitDoujiRequest submitDoujiRequest)
@@ -529,7 +529,7 @@ namespace Simline2.Controllers
         [Route("/rs/api/v1/applications/submit_renken.json")]
         [ValidateModelState]
         [SwaggerOperation("ApplicationsSubmitRenkenJsonPost")]
-        [SwaggerResponse(statusCode: 200, type: typeof(SubmitRenkenResponse), description: "処理が正常終了し、受信したリクエストの\&quot;seq\&quot;と\&quot;total\&quot;の値が一致していない場合、連件申請送信レスポンスにデータを設定せずに返却する。  処理が正常終了し、受信したリクエストの\&quot;seq\&quot;と\&quot;total\&quot;の値が一致している場合、連件申請送信レスポンスに申請された件数だけデータを設定し返却する。 ")]
+        [SwaggerResponse(statusCode: 200, type: typeof(SubmitRenkenResponse), description: "処理が正常終了し、受信したリクエストの\\&quot;seq\\&quot;と\\&quot;total\\&quot;の値が一致していない場合、連件申請送信レスポンスにデータを設定せずに返却する。  処理が正常終了し、受信したリクエストの\\&quot;seq\\&quot;と\\&quot;total\\&quot;の値が一致している場合、連件申請送信レスポンスに申請された件数だけデータを設定し返却する。 ")]
         [SwaggerResponse(statusCode: 400, type: typeof(SubmitRenkenErrorResponse), description: "パラメータに誤りがある場合等に連件申請送信エラーレスポンスを返却する。 ")]
         [SwaggerResponse(statusCode: 401, type: typeof(HTTP401), description: "ユーザIDやパスワードに誤りがある場合等に認証エラーを返却する。 ")]
         public virtual IActionResult ApplicationsSubmitRenkenJsonPost([FromBody]SubmitRenkenRequest submitRenkenRequest)
