@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
+using System.Security.Authentication;
 
 namespace Simline2
 {
@@ -27,7 +28,13 @@ namespace Simline2
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                    webBuilder.UseStartup<Startup>()
-                             .UseUrls("http://0.0.0.0:8080/");
+                             .UseKestrel((context, serverOptions) => {
+                                 serverOptions.Configure(context.Configuration.GetSection("Kestrel"))
+                                 .Endpoint("Https", listenOptions =>
+                                 {
+                                     listenOptions.HttpsOptions.SslProtocols = SslProtocols.Tls12 | SslProtocols.Tls13;
+                                 });
+                             });
                 });
     }
 }
