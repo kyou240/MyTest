@@ -37,7 +37,7 @@ namespace Simline2.Models
         /// 納付状況：  - 0 ・・・ 未登録 - 1 ・・・ 未納付 - 2 ・・・ 納付済み - 3 ・・・ 納付期限切れ - 4 ・・・ 納付取消済み 
         /// </summary>
         /// <value>納付状況：  - 0 ・・・ 未登録 - 1 ・・・ 未納付 - 2 ・・・ 納付済み - 3 ・・・ 納付期限切れ - 4 ・・・ 納付取消済み </value>
-        [RegularExpression("^[0-4]$")]
+        [RegularExpression("/^[0-4]$/")]
         [DataMember(Name="nofuJokyo", EmitDefaultValue=false)]
         public int NofuJokyo { get; set; }
 

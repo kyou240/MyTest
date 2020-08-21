@@ -30,7 +30,7 @@ namespace Simline2.Models
         /// 納付状況：    - 0 ・・・ 未登録   - 1 ・・・ 未納付   - 2 ・・・ 納付済み   - 3 ・・・ 納付期限切れ   - 4 ・・・ 納付取消済み 
         /// </summary>
         /// <value>納付状況：    - 0 ・・・ 未登録   - 1 ・・・ 未納付   - 2 ・・・ 納付済み   - 3 ・・・ 納付期限切れ   - 4 ・・・ 納付取消済み </value>
-        [RegularExpression("^[0-4]$")]
+        [RegularExpression("/^[0-4]$/")]
         [DataMember(Name="nofuJokyo", EmitDefaultValue=false)]
         public int NofuJokyo { get; set; }
 
@@ -56,7 +56,7 @@ namespace Simline2.Models
         /// </summary>
         /// <value>処理状況:  - 20 ・・・ 到達待ち - 21 ・・・ 意思確認中 - 22 ・・・ 到達・受付待ち - 23 ・・・ 到達・受付待ち - 30 ・・・ 受付完了 - 31 ・・・ 審査中 - 32 ・・・ 処理中 - 33 ・・・ 取下中 - 40 ・・・ 審査中 (補正待ち) - 41 ・・・ 審査中 (補正中) - 42 ・・・ 審査中 (補正済み) - 49 ・・・ 審査完了 (却下) - 50 ・・・ 審査終了 - 51 ・・・ 手続終了 - 52 ・・・ 取下完了 - 53 ・・・ 中止/却下 - 54 ・・・ 失効 </value>
         [Required]
-        [RegularExpression("^[0-9]{2}$")]
+        [RegularExpression("/^[0-9]{2}$/")]
         [DataMember(Name="shoriJokyo", EmitDefaultValue=false)]
         public int ShoriJokyo { get; set; }
 

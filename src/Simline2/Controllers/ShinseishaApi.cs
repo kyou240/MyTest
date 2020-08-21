@@ -18,9 +18,6 @@ using Swashbuckle.AspNetCore.SwaggerGen;
 using Newtonsoft.Json;
 using Simline2.Attributes;
 using Simline2.Models;
-using SlDataProvider;
-using System.Security.Claims;
-using Microsoft.AspNetCore.Http;
 
 namespace Simline2.Controllers
 { 
@@ -29,18 +26,7 @@ namespace Simline2.Controllers
     /// </summary>
     [ApiController]
     public class ShinseishaApiController : ControllerBase
-    {
-        private IShinseishaService _shinseishaService;
-
-        /// <summary>
-        /// コンストラクター
-        /// </summary>
-        /// <param name="shinseishaService">申請者情報取得サービス</param>
-        public ShinseishaApiController(IShinseishaService shinseishaService)
-        {
-            _shinseishaService = shinseishaService;
-        }
-
+    { 
         /// <summary>
         /// 申請者情報取得
         /// </summary>
@@ -54,78 +40,20 @@ namespace Simline2.Controllers
         [SwaggerResponse(statusCode: 200, type: typeof(ShinseishaResponse), description: "リクエスト（Authorizationヘッダ）より取得した申請者IDを元に処理を実行し、正常終了した場合、申請者情報取得レスポンスを返却する。 ")]
         [SwaggerResponse(statusCode: 401, type: typeof(HTTP401), description: "ユーザIDやパスワードに誤りがある場合等に認証エラーを返却する。 ")]
         public virtual IActionResult ShinseishaJsonGet()
-        {
+        { 
 
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(200, default(ShinseishaResponse));
             //TODO: Uncomment the next line to return response 401 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(401, default(HTTP401));
-
-            //コンテキストからユーザーID取得
-            var userid = this.User.FindFirstValue(ClaimTypes.Name);
-            var shinseisha = _shinseishaService.Get(userid);
-
-            if (null == HttpContext.Session.GetString("申請者ID"))
-            {
-                //セッションにユーザーIDを保存
-                HttpContext.Session.SetString("申請者ID", userid);
-            }
-
-            DateTime yukoKigembi = DateTime.Today.AddDays(shinseisha.YUKOKIGEN);
-            DateTime now = DateTime.Now;
-
-            string resultJson = "";
-            object result = null;
-
-            if (!shinseisha.ACCTLOCK && now < yukoKigembi)
-            {
-                resultJson = string.Format("{{\r\n  \"shimei\" : \"{0}\",\r\n  \"shimeiKana\" : \"{1}\"\r\n}}", shinseisha.SHIMEI, shinseisha.SHIMEIKANA);
-                result = resultJson != null ? JsonConvert.DeserializeObject<ShinseishaResponse>(resultJson) : default;
-
-                //パスワード更新日計算
-                if ((yukoKigembi.AddDays(-180) <= now && now < yukoKigembi.AddDays(-90)) ||
-                    (yukoKigembi.AddDays(-90) <= now && now < yukoKigembi.AddDays(-30)) ||
-                    (yukoKigembi.AddDays(-30) <= now && now < yukoKigembi.AddDays(-7)) ||
-                    yukoKigembi.AddDays(-7) <= now)
-                {
-                    this.Response.Headers["X-PasswordKoushinTsuchi"] = "1";
-                    this.Response.Headers["X-PasswordYukoKigen"] = yukoKigembi.AddSeconds(-1).ToString("yyyy.MM.dd HH:mm:ss", new System.Globalization.CultureInfo("ja-JP"));
-                }
-                else
-                {
-                    this.Response.Headers["X-PasswordKoushinTsuchi"] = "0";
-                }
-            }
-            else
-            {
-                HttpContext.Session.Clear();
-
-                this.Response.StatusCode = StatusCodes.Status401Unauthorized;
-                string errorMessage = "認証に失敗しました。";
-                int status = 401;
-                string title = "Unauthorized";
-
-                resultJson = string.Format("{{\r\n  \"errorMessage\" : \"{0}\",\r\n  \"status\" : {1}, \r\n  \"title\" : \"{2}\"\r\n}}", errorMessage, status, title);
-                result = resultJson != null ? JsonConvert.DeserializeObject<HTTP401>(resultJson) : default;
-
-                if (shinseisha.ACCTLOCK)
-                {
-                    this.Response.Headers["X-LoginError"] = "ACCOUNT_LOCK_ERROR";
-                }
-                if (shinseisha.YUKOKIGEN <= 0)
-                {
-                    this.Response.Headers["X-LoginError"] = "PASSWORD_YUKO_KIGEN_ERROR";
-                }
-            }
-
-            //string exampleJson = null;
-            //exampleJson = "{\r\n  \"shimeiKana\" : \"ホウムタロウ\",\r\n  \"shimei\" : \"法務太郎\"\r\n}";
+            string exampleJson = null;
+            exampleJson = "{\r\n  \"shimeiKana\" : \"ホウムタロウ\",\r\n  \"shimei\" : \"法務太郎\"\r\n}";
             
-            //var example = exampleJson != null
-            //? JsonConvert.DeserializeObject<ShinseishaResponse>(exampleJson)
-            //: default(ShinseishaResponse);
+            var example = exampleJson != null
+            ? JsonConvert.DeserializeObject<ShinseishaResponse>(exampleJson)
+            : default(ShinseishaResponse);
             //TODO: Change the data returned
-            return new ObjectResult(result);
+            return new ObjectResult(example);
         }
     }
 }

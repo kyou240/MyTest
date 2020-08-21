@@ -2208,7 +2208,7 @@
           "oshiraseKubun" : {
             "description" : "お知らせ区分：\n\n- 1 ・・・ 補正通知以外\n- 2 ・・・ 補正通知\n",
             "example" : 1,
-            "pattern" : "^[1-2]$",
+            "pattern" : "/^[1-2]$/",
             "type" : "integer"
           },
           "oshiraseNaiyo" : {
@@ -2295,7 +2295,7 @@
           "oshiraseKubun" : {
             "description" : "お知らせ区分。常に3:未失効回答通知を返す。",
             "example" : 3,
-            "pattern" : "^3$",
+            "pattern" : "/^3$/",
             "type" : "integer"
           },
           "oshiraseNaiyo" : {
@@ -2378,7 +2378,7 @@
           "nofuJokyo" : {
             "description" : "納付状況：\n\n- 0 ・・・ 未登録\n- 1 ・・・ 未納付\n- 2 ・・・ 納付済み\n- 3 ・・・ 納付期限切れ\n- 4 ・・・ 納付取消済み\n",
             "example" : 1,
-            "pattern" : "^[0-4]$",
+            "pattern" : "/^[0-4]$/",
             "type" : "integer"
           },
           "nofuNichiji" : {
@@ -2818,13 +2818,13 @@
           "kakuninBango" : {
             "description" : "確認番号",
             "example" : "123456",
-            "pattern" : "^[0-9]{6}$",
+            "pattern" : "/^[0-9]{6}$/",
             "type" : "string"
           },
           "nofuBango" : {
             "description" : "納付番号 (数字16桁＋英字(空白含む)4桁)",
             "example" : "1234567890123456    ",
-            "pattern" : "^[0-9]{16}[a-zA-Z ]{4}$",
+            "pattern" : "/^[0-9]{16}[a-zA-Z ]{4}$/",
             "type" : "string"
           },
           "nofuGaku" : {
@@ -2841,7 +2841,7 @@
           },
           "nofuJokyo" : {
             "description" : "納付状況：\n\n- 0 ・・・ 未登録\n- 1 ・・・ 未納付\n- 2 ・・・ 納付済み\n- 3 ・・・ 納付期限切れ\n- 4 ・・・ 納付取消済み\n",
-            "pattern" : "^[0-4]$",
+            "pattern" : "/^[0-4]$/",
             "type" : "integer"
           },
           "nofuKikanSaishuNengappi" : {
@@ -2877,7 +2877,7 @@
         "properties" : {
           "nofuJokyo" : {
             "description" : "納付状況：\n\n  - 0 ・・・ 未登録\n  - 1 ・・・ 未納付\n  - 2 ・・・ 納付済み\n  - 3 ・・・ 納付期限切れ\n  - 4 ・・・ 納付取消済み\n",
-            "pattern" : "^[0-4]$",
+            "pattern" : "/^[0-4]$/",
             "type" : "integer"
           },
           "saishuKoshinNichiji" : {
@@ -2894,7 +2894,7 @@
           },
           "shoriJokyo" : {
             "description" : "処理状況:\n\n- 20 ・・・ 到達待ち\n- 21 ・・・ 意思確認中\n- 22 ・・・ 到達・受付待ち\n- 23 ・・・ 到達・受付待ち\n- 30 ・・・ 受付完了\n- 31 ・・・ 審査中\n- 32 ・・・ 処理中\n- 33 ・・・ 取下中\n- 40 ・・・ 審査中 (補正待ち)\n- 41 ・・・ 審査中 (補正中)\n- 42 ・・・ 審査中 (補正済み)\n- 49 ・・・ 審査完了 (却下)\n- 50 ・・・ 審査終了\n- 51 ・・・ 手続終了\n- 52 ・・・ 取下完了\n- 53 ・・・ 中止/却下\n- 54 ・・・ 失効\n",
-            "pattern" : "^[0-9]{2}$",
+            "pattern" : "/^[0-9]{2}$/",
             "type" : "integer"
           },
           "tsusu" : {

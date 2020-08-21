@@ -30,7 +30,7 @@ namespace Simline2.Models
         /// 確認番号
         /// </summary>
         /// <value>確認番号</value>
-        [RegularExpression("^[0-9]{6}$")]
+        [RegularExpression("/^[0-9]{6}$/")]
         [DataMember(Name="kakuninBango", EmitDefaultValue=false)]
         public string KakuninBango { get; set; }
 
@@ -38,7 +38,7 @@ namespace Simline2.Models
         /// 納付番号 (数字16桁＋英字(空白含む)4桁)
         /// </summary>
         /// <value>納付番号 (数字16桁＋英字(空白含む)4桁)</value>
-        [RegularExpression("^[0-9]{16}[a-zA-Z ]{4}$")]
+        [RegularExpression("/^[0-9]{16}[a-zA-Z ]{4}$/")]
         [DataMember(Name="nofuBango", EmitDefaultValue=false)]
         public string NofuBango { get; set; }
 
@@ -61,7 +61,7 @@ namespace Simline2.Models
         /// </summary>
         /// <value>納付状況：  - 0 ・・・ 未登録 - 1 ・・・ 未納付 - 2 ・・・ 納付済み - 3 ・・・ 納付期限切れ - 4 ・・・ 納付取消済み </value>
         [Required]
-        [RegularExpression("^[0-4]$")]
+        [RegularExpression("/^[0-4]$/")]
         [DataMember(Name="nofuJokyo", EmitDefaultValue=false)]
         public int NofuJokyo { get; set; }
 

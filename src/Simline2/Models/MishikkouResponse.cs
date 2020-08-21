@@ -31,7 +31,7 @@ namespace Simline2.Models
         /// </summary>
         /// <value>お知らせ区分。常に3:未失効回答通知を返す。</value>
         [Required]
-        [RegularExpression("^3$")]
+        [RegularExpression("/^3$/")]
         [DataMember(Name="oshiraseKubun", EmitDefaultValue=false)]
         public int OshiraseKubun { get; set; }
 

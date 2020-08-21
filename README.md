@@ -1,4 +1,4 @@
-# Simline2 - ASP.NET Core 3.0 Server
+# Simline2 - ASP.NET Core 3.1 Server
 
 
 本リファレンスは登記・供託オンライン申請システムAPIリファレンスとなります。

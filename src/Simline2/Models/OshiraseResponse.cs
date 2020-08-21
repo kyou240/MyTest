@@ -31,7 +31,7 @@ namespace Simline2.Models
         /// </summary>
         /// <value>お知らせ区分：  - 1 ・・・ 補正通知以外 - 2 ・・・ 補正通知 </value>
         [Required]
-        [RegularExpression("^[1-2]$")]
+        [RegularExpression("/^[1-2]$/")]
         [DataMember(Name="oshiraseKubun", EmitDefaultValue=false)]
         public int OshiraseKubun { get; set; }
 
