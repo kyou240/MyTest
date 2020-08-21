@@ -1,20 +1,49 @@
-# 概要 
-TODO: プロジェクトの概要を示します。このセクションでは、プロジェクトの目的または意図についてご説明ください。
+# Simline2 - ASP.NET Core 3.0 Server
 
-# はじめに
-TODO: ユーザーがシステムでコードを実行できるようにします。このセクションでは、以下の点について取り上げることができます。
-1.	インストール プロセス
-2.	ソフトウェア依存関係
-3.	最新リリース
-4.	API リファレンス
 
-#ビルドとテスト
-TODO: コードをビルドしてテストする方法について説明し、示します。
+本リファレンスは登記・供託オンライン申請システムAPIリファレンスとなります。
 
-# 貢献
-TODO: 他のユーザーや開発者がコードの改善に貢献できる方法を説明します。
+登記・供託オンライン申請システムAPIを利用することで、オンライン申請、処理状況の確認、公文書取得等を行うことができます。
 
-優れた README ファイルを作成する方法について詳しくは、次の[ガイドライン](https://www.visualstudio.com/ja-jp/docs/git/create-a-readme)をご覧ください。また、以下の README ファイルも参考にできます。
-- [ASP.NET Core](https://github.com/aspnet/Home)
-- [Visual Studio Code](https://github.com/Microsoft/vscode)
-- [Chakra Core](https://github.com/Microsoft/ChakraCore)
+本リファレンスは「API一覧」と「リクエスト・レスポンス一覧」で構成されており、それぞれ以下の内容を記しています。
+
+■API一覧
+  
+  各APIの仕様について記しています。
+
+■リクエスト・レスポンス一覧
+  
+  各APIのリクエスト及びレスポンスの構造や各API共通で扱う共通エラーレスポンスの構造を記しています。なお、Exampleの値はSwaggerファイルと異なる表記となる場合がありますので、別途提供するSwaggerファイルをあわせて確認してください。
+
+共通エラーレスポンスは以下の4種類です。詳細についてはリクエスト・レスポンス一覧の内容を確認してください。
+
+  ・HTTP403（Forbidden）
+
+  ・HTTP404（Not Found）
+  
+  ・HTTP500（Internal Server Error）
+  
+  ・HTTP503（Service unavailable）
+  
+
+
+## Run
+
+Linux/OS X:
+
+```
+sh build.sh
+```
+
+Windows:
+
+```
+build.bat
+```
+## Run in Docker
+
+```
+cd src/Simline2
+docker build -t simline2 .
+docker run -p 5000:8080 simline2
+```
