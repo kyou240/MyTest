@@ -62,13 +62,13 @@ namespace Simline2.Controllers
             // return StatusCode(401, default(HTTP401));
 
             //コンテキストからユーザーID取得
-            var userid = this.User.FindFirstValue(ClaimTypes.Name);
+            var userid = this.HttpContext.User.FindFirstValue(ClaimTypes.Name);
             var shinseisha = _shinseishaService.Get(userid);
 
-            if (null == HttpContext.Session.GetString("申請者ID"))
+            if (null == this.HttpContext.Session.GetString("申請者ID"))
             {
                 //セッションにユーザーIDを保存
-                HttpContext.Session.SetString("申請者ID", userid);
+                this.HttpContext.Session.SetString("申請者ID", userid);
             }
 
             DateTime yukoKigembi = DateTime.Today.AddDays(shinseisha.YUKOKIGEN);
@@ -88,19 +88,19 @@ namespace Simline2.Controllers
                     (yukoKigembi.AddDays(-30) <= now && now < yukoKigembi.AddDays(-7)) ||
                     yukoKigembi.AddDays(-7) <= now)
                 {
-                    this.Response.Headers["X-PasswordKoushinTsuchi"] = "1";
-                    this.Response.Headers["X-PasswordYukoKigen"] = yukoKigembi.AddSeconds(-1).ToString("yyyy.MM.dd HH:mm:ss", new System.Globalization.CultureInfo("ja-JP"));
+                    this.HttpContext.Response.Headers["X-PasswordKoushinTsuchi"] = "1";
+                    this.HttpContext.Response.Headers["X-PasswordYukoKigen"] = yukoKigembi.AddSeconds(-1).ToString("yyyy.MM.dd HH:mm:ss", new System.Globalization.CultureInfo("ja-JP"));
                 }
                 else
                 {
-                    this.Response.Headers["X-PasswordKoushinTsuchi"] = "0";
+                    this.HttpContext.Response.Headers["X-PasswordKoushinTsuchi"] = "0";
                 }
             }
             else
             {
-                HttpContext.Session.Clear();
+                this.HttpContext.Session.Clear();
 
-                this.Response.StatusCode = StatusCodes.Status401Unauthorized;
+                this.HttpContext.Response.StatusCode = StatusCodes.Status401Unauthorized;
                 string errorMessage = "認証に失敗しました。";
                 int status = 401;
                 string title = "Unauthorized";
@@ -110,11 +110,11 @@ namespace Simline2.Controllers
 
                 if (shinseisha.ACCTLOCK)
                 {
-                    this.Response.Headers["X-LoginError"] = "ACCOUNT_LOCK_ERROR";
+                    this.HttpContext.Response.Headers["X-LoginError"] = "ACCOUNT_LOCK_ERROR";
                 }
                 if (shinseisha.YUKOKIGEN <= 0)
                 {
-                    this.Response.Headers["X-LoginError"] = "PASSWORD_YUKO_KIGEN_ERROR";
+                    this.HttpContext.Response.Headers["X-LoginError"] = "PASSWORD_YUKO_KIGEN_ERROR";
                 }
             }
 
