@@ -14,15 +14,19 @@ using System.Reflection;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
+using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 using Simline2.Authentication;
 using Simline2.Filters;
+using Simline2.MiddleWares;
 using Simline2.OpenApi;
+using SlDataProvider;
 
 namespace Simline2
 {
@@ -96,8 +100,30 @@ namespace Simline2
                     // Use [ValidateModelState] on Actions to actually validate it in C# as well!
                     c.OperationFilter<GeneratePathParamsValidationFilter>();
                 });
-                services
-                    .AddSwaggerGenNewtonsoftSupport();
+            services
+                .AddSwaggerGenNewtonsoftSupport();
+            //セッションサービス
+            services.AddDistributedMemoryCache();
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(1);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
+
+            //シミュレータ設定のDBのコンテキスト
+            services.AddDbContext<SimLineDbContext>(options => options
+            .UseMySql(
+                Configuration.GetConnectionString("SimLineDbConnectionString"),
+                MySqlOptions => MySqlOptions.ServerVersion(new Version(10, 5, 4), ServerType.MariaDb)
+                )
+            );
+
+            //申請者情報取得サービス登録
+            services.AddScoped<IShinseishaService, ShinseishaService>();
+
+            //シミュレータ設定取得サービス登録
+            services.AddScoped<ISMConfigService, SMConfigService>();
         }
 
         /// <summary>
@@ -132,6 +158,16 @@ namespace Simline2
                     // c.SwaggerEndpoint("/openapi-original.json", "登記・供託オンライン申請システムAPI Original");
                 });
             app.UseRouting();
+
+            //サービス時間チェック
+            app.UseMiddleware<OutOfServiceMiddleware>();
+
+            //ベーシック認証ミドルウェア
+            app.UseMiddleware<BasicAuthMiddleware>();
+
+            //セッションミドルウェア
+            app.UseSession();
+
             app.UseEndpoints(endpoints =>
 	            {
 	    	        endpoints.MapControllers();
