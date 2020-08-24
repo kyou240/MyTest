@@ -51,11 +51,6 @@ namespace Simline2.MiddleWares
                 //パスワードのハッシュ化
                 string hashedpwd = ToSha256(password);
 
-                using (StreamWriter sw = new StreamWriter(@"./test.log", true))
-                {
-                    sw.WriteLine(hashedpwd);
-                }
-
                 //認証実行
                 using var scope = _serviceProvider.CreateScope();
                 var _shinseishaService = scope.ServiceProvider.GetRequiredService<IShinseishaService>();
@@ -64,27 +59,61 @@ namespace Simline2.MiddleWares
                 //認証成功
                 if (null != shinseisha)
                 {
-                    var claims = new[]
-                    {
-                        new Claim(ClaimTypes.Name, userid),
-                        new Claim(ClaimTypes.Role, "User")
-                    };
-                    var identity = new ClaimsIdentity(claims, "Basic");
-                    context.User = new ClaimsPrincipal(identity);
+                    DateTime yukoKigembi = DateTime.Today.AddDays(shinseisha.YUKOKIGEN);
+                    DateTime now = DateTime.Now;
 
-                    await _next(context);
-                    return;
+                    if (!shinseisha.ACCTLOCK && now < yukoKigembi)
+                    {
+                        //Basic認証成功の場合、ユーザーパスワードの有効期限の検証を行う
+                        if (null == context.Session.GetString("申請者ID"))
+                        {
+                            //セッションにユーザーIDを保存
+                            context.Session.SetString("申請者ID", userid);
+                        }
+
+                        //パスワード更新日計算
+                        if ((yukoKigembi.AddDays(-180) <= now && now < yukoKigembi.AddDays(-90)) ||
+                            (yukoKigembi.AddDays(-90) <= now && now < yukoKigembi.AddDays(-30)) ||
+                            (yukoKigembi.AddDays(-30) <= now && now < yukoKigembi.AddDays(-7)) ||
+                            yukoKigembi.AddDays(-7) <= now)
+                        {
+                            context.Response.Headers["X-PasswordKoushinTsuchi"] = "1";
+                            context.Response.Headers["X-PasswordYukoKigen"] = yukoKigembi.AddSeconds(-1).ToString("yyyy.MM.dd HH:mm:ss", new System.Globalization.CultureInfo("ja-JP"));
+                        }
+                        else
+                        {
+                            context.Response.Headers["X-PasswordKoushinTsuchi"] = "0";
+                        }
+
+                        var claims = new[]
+                        {
+                            new Claim(ClaimTypes.Name, userid),
+                            new Claim(ClaimTypes.Role, "User")
+                        };
+                        var identity = new ClaimsIdentity(claims, "Basic");
+                        context.User = new ClaimsPrincipal(identity);
+
+                        await _next(context);
+                        return;
+                    }
+
+                    if (shinseisha.ACCTLOCK)
+                    {
+                        context.Response.Headers["X-LoginError"] = "ACCOUNT_LOCK_ERROR";
+                    }
+                    if (shinseisha.YUKOKIGEN <= 0)
+                    {
+                        context.Response.Headers["X-LoginError"] = "PASSWORD_YUKO_KIGEN_ERROR";
+                    }
                 }
-                else
-                {
-                    //認証失敗
-                    context.Response.StatusCode = StatusCodes.Status401Unauthorized;
-                    string errorMessage = "認証に失敗しました。";
-                    int status = 401;
-                    string title = "Unauthorized";
-                    string responseText = string.Format("{{\r\n  \"errorMessage\" : \"{0}\",\r\n  \"status\" : {1}, \r\n  \"title\" : \"{2}\"\r\n}}", errorMessage, status, title);
-                    await context.Response.WriteAsync(responseText);
-                }
+
+                //認証失敗
+                context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+                string errorMessage = "認証に失敗しました。";
+                int status = 401;
+                string title = "Unauthorized";
+                string responseText = string.Format("{{\r\n  \"errorMessage\" : \"{0}\",\r\n  \"status\" : {1}, \r\n  \"title\" : \"{2}\"\r\n}}", errorMessage, status, title);
+                await context.Response.WriteAsync(responseText);
             }
         }
 

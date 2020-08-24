@@ -65,6 +65,10 @@ namespace Simline2.Controllers
             var userid = this.HttpContext.User.FindFirstValue(ClaimTypes.Name);
             var shinseisha = _shinseishaService.Get(userid);
 
+            string resultJson = string.Format("{{\r\n  \"shimei\" : \"{0}\",\r\n  \"shimeiKana\" : \"{1}\"\r\n}}", shinseisha.SHIMEI, shinseisha.SHIMEIKANA);
+            object result = resultJson != null ? JsonConvert.DeserializeObject<ShinseishaResponse>(resultJson) : default;
+
+            /*
             if (null == this.HttpContext.Session.GetString("申請者ID"))
             {
                 //セッションにユーザーIDを保存
@@ -125,6 +129,7 @@ namespace Simline2.Controllers
             //? JsonConvert.DeserializeObject<ShinseishaResponse>(exampleJson)
             //: default(ShinseishaResponse);
             //TODO: Change the data returned
+            */
             return new ObjectResult(result);
         }
     }
