@@ -30,5 +30,9 @@
     <None Update="libs\SlDataProvider.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+  
+    <None Update="slserver.pfx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 </Project>

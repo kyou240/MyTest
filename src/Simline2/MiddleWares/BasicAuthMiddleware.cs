@@ -108,6 +108,7 @@ namespace Simline2.MiddleWares
                 }
 
                 //認証失敗
+                context.Session.Clear();
                 context.Response.StatusCode = StatusCodes.Status401Unauthorized;
                 string errorMessage = "認証に失敗しました。";
                 int status = 401;
