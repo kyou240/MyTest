@@ -11,9 +11,12 @@
 using System;
 using System.IO;
 using System.Reflection;
+using System.Runtime.Serialization;
+using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -109,6 +112,7 @@ namespace Simline2
                 options.IdleTimeout = TimeSpan.FromMinutes(1);
                 options.Cookie.HttpOnly = true;
                 options.Cookie.IsEssential = true;
+                options.Cookie.SameSite = SameSiteMode.Lax;
             });
 
             //シミュレータ設定のDBのコンテキスト
@@ -167,6 +171,29 @@ namespace Simline2
 
             //セッションミドルウェア
             app.UseSession();
+
+            //ユーザーIDとパスワードをセッションへ保存
+            app.Use(async (context, next) =>
+            {
+                var userid = context.User.FindFirstValue(ClaimTypes.Name);
+
+                if (null == context.Session.GetString("申請者ID"))
+                {
+                    context.Session.SetString("申請者ID", userid);
+                }
+                /*セッションの制御
+                else
+                {
+                    string uid = context.Session.GetString("申請者ID");
+                    if(userid != uid)
+                    {
+                        context.Response.Cookies.Delete(".AspNetCore.Session");
+                    }
+                }
+                */
+
+                await next.Invoke();
+            });
 
             app.UseEndpoints(endpoints =>
 	            {
