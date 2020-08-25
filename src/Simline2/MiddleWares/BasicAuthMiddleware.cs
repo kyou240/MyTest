@@ -64,12 +64,14 @@ namespace Simline2.MiddleWares
 
                     if (!shinseisha.ACCTLOCK && now < yukoKigembi)
                     {
+                        /*
                         //Basic認証成功の場合、ユーザーパスワードの有効期限の検証を行う
                         if (null == context.Session.GetString("申請者ID"))
                         {
                             //セッションにユーザーIDを保存
                             context.Session.SetString("申請者ID", userid);
                         }
+                        */
 
                         //パスワード更新日計算
                         if ((yukoKigembi.AddDays(-180) <= now && now < yukoKigembi.AddDays(-90)) ||
@@ -108,7 +110,7 @@ namespace Simline2.MiddleWares
                 }
 
                 //認証失敗
-                context.Session.Clear();
+                //context.Session.Clear();
                 context.Response.StatusCode = StatusCodes.Status401Unauthorized;
                 string errorMessage = "認証に失敗しました。";
                 int status = 401;

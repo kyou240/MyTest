@@ -159,14 +159,14 @@ namespace Simline2
                 });
             app.UseRouting();
 
-            //セッションミドルウェア
-            app.UseSession();
-
             //サービス時間チェック
             app.UseMiddleware<OutOfServiceMiddleware>();
 
             //ベーシック認証ミドルウェア
             app.UseMiddleware<BasicAuthMiddleware>();
+
+            //セッションミドルウェア
+            app.UseSession();
 
             app.UseEndpoints(endpoints =>
 	            {
