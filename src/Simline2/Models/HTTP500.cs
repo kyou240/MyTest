@@ -32,7 +32,7 @@ namespace Simline2.Models
         /// <value>HTTPステータスコード</value>
         [Required]
         [DataMember(Name="status", EmitDefaultValue=false)]
-        public int Status { get; set; }
+        public int? Status { get; set; }
 
         /// <summary>
         /// エラー名称
@@ -99,7 +99,7 @@ namespace Simline2.Models
             return 
                 (
                     Status == other.Status ||
-                    
+                    Status != null &&
                     Status.Equals(other.Status)
                 ) && 
                 (
@@ -124,7 +124,7 @@ namespace Simline2.Models
             {
                 var hashCode = 41;
                 // Suitable nullity checks etc, of course :)
-                    
+                    if (Status != null)
                     hashCode = hashCode * 59 + Status.GetHashCode();
                     if (Title != null)
                     hashCode = hashCode * 59 + Title.GetHashCode();

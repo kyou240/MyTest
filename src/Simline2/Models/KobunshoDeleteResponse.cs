@@ -31,7 +31,7 @@ namespace Simline2.Models
         /// </summary>
         /// <value>申請案件の最終更新日時</value>
         [DataMember(Name="saishuKoshinNichiji", EmitDefaultValue=false)]
-        public DateTime SaishuKoshinNichiji { get; set; }
+        public DateTime? SaishuKoshinNichiji { get; set; }
 
         /// <summary>
         /// 処理結果。手続の終了に成功した場合はtrueを、失敗した場合はfalseを返す。
@@ -39,7 +39,7 @@ namespace Simline2.Models
         /// <value>処理結果。手続の終了に成功した場合はtrueを、失敗した場合はfalseを返す。</value>
         [Required]
         [DataMember(Name="status", EmitDefaultValue=false)]
-        public bool Status { get; set; }
+        public bool? Status { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -94,7 +94,7 @@ namespace Simline2.Models
                 ) && 
                 (
                     Status == other.Status ||
-                    
+                    Status != null &&
                     Status.Equals(other.Status)
                 );
         }
@@ -111,7 +111,7 @@ namespace Simline2.Models
                 // Suitable nullity checks etc, of course :)
                     if (SaishuKoshinNichiji != null)
                     hashCode = hashCode * 59 + SaishuKoshinNichiji.GetHashCode();
-                    
+                    if (Status != null)
                     hashCode = hashCode * 59 + Status.GetHashCode();
                 return hashCode;
             }

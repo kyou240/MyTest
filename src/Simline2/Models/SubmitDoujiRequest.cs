@@ -48,7 +48,7 @@ namespace Simline2.Models
         /// <value>この同時申請の中での順番。1から始めて送信のたびに1ずつ増やすこと。</value>
         [Required]
         [DataMember(Name="seq", EmitDefaultValue=false)]
-        public int Seq { get; set; }
+        public int? Seq { get; set; }
 
         /// <summary>
         /// この同時申請で申請する申請案件の数。毎回同じ値を指定すること。設定する値は２以上であること。
@@ -56,7 +56,7 @@ namespace Simline2.Models
         /// <value>この同時申請で申請する申請案件の数。毎回同じ値を指定すること。設定する値は２以上であること。</value>
         [Required]
         [DataMember(Name="total", EmitDefaultValue=false)]
-        public int Total { get; set; }
+        public int? Total { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -118,12 +118,12 @@ namespace Simline2.Models
                 ) && 
                 (
                     Seq == other.Seq ||
-                    
+                    Seq != null &&
                     Seq.Equals(other.Seq)
                 ) && 
                 (
                     Total == other.Total ||
-                    
+                    Total != null &&
                     Total.Equals(other.Total)
                 );
         }
@@ -142,9 +142,9 @@ namespace Simline2.Models
                     hashCode = hashCode * 59 + Data.GetHashCode();
                     if (TokishoCode != null)
                     hashCode = hashCode * 59 + TokishoCode.GetHashCode();
-                    
+                    if (Seq != null)
                     hashCode = hashCode * 59 + Seq.GetHashCode();
-                    
+                    if (Total != null)
                     hashCode = hashCode * 59 + Total.GetHashCode();
                 return hashCode;
             }

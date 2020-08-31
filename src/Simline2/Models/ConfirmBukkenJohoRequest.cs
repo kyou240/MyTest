@@ -40,7 +40,7 @@ namespace Simline2.Models
         /// <value>エラー発生時処理続行フラグ。確認エラーとなる物件情報が存在した場合でも最後まで確認処理を継続する場合はtrueを、確認処理を中断する場合はfalseを設定する。</value>
         [Required]
         [DataMember(Name="continueConfirmBukkenJoho", EmitDefaultValue=false)]
-        public bool ContinueConfirmBukkenJoho { get; set; }
+        public bool? ContinueConfirmBukkenJoho { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -96,7 +96,7 @@ namespace Simline2.Models
                 ) && 
                 (
                     ContinueConfirmBukkenJoho == other.ContinueConfirmBukkenJoho ||
-                    
+                    ContinueConfirmBukkenJoho != null &&
                     ContinueConfirmBukkenJoho.Equals(other.ContinueConfirmBukkenJoho)
                 );
         }
@@ -113,7 +113,7 @@ namespace Simline2.Models
                 // Suitable nullity checks etc, of course :)
                     if (BukkenJohos != null)
                     hashCode = hashCode * 59 + BukkenJohos.GetHashCode();
-                    
+                    if (ContinueConfirmBukkenJoho != null)
                     hashCode = hashCode * 59 + ContinueConfirmBukkenJoho.GetHashCode();
                 return hashCode;
             }

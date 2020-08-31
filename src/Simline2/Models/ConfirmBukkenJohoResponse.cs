@@ -40,7 +40,7 @@ namespace Simline2.Models
         /// <value>確認エラー有無。“000”及び“999”以外の確認結果コードが１件以上存在する場合はtrueを、存在しない場合はfalseを返却する。</value>
         [Required]
         [DataMember(Name="confirmationErrorUmu", EmitDefaultValue=false)]
-        public bool ConfirmationErrorUmu { get; set; }
+        public bool? ConfirmationErrorUmu { get; set; }
 
         /// <summary>
         /// システムエラー有無。“999”の確認結果コードが１件以上存在する場合はtrueを、存在しない場合はfalseを返却する。
@@ -48,7 +48,7 @@ namespace Simline2.Models
         /// <value>システムエラー有無。“999”の確認結果コードが１件以上存在する場合はtrueを、存在しない場合はfalseを返却する。</value>
         [Required]
         [DataMember(Name="systemErrorUmu", EmitDefaultValue=false)]
-        public bool SystemErrorUmu { get; set; }
+        public bool? SystemErrorUmu { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -105,12 +105,12 @@ namespace Simline2.Models
                 ) && 
                 (
                     ConfirmationErrorUmu == other.ConfirmationErrorUmu ||
-                    
+                    ConfirmationErrorUmu != null &&
                     ConfirmationErrorUmu.Equals(other.ConfirmationErrorUmu)
                 ) && 
                 (
                     SystemErrorUmu == other.SystemErrorUmu ||
-                    
+                    SystemErrorUmu != null &&
                     SystemErrorUmu.Equals(other.SystemErrorUmu)
                 );
         }
@@ -127,9 +127,9 @@ namespace Simline2.Models
                 // Suitable nullity checks etc, of course :)
                     if (ResultCodeList != null)
                     hashCode = hashCode * 59 + ResultCodeList.GetHashCode();
-                    
+                    if (ConfirmationErrorUmu != null)
                     hashCode = hashCode * 59 + ConfirmationErrorUmu.GetHashCode();
-                    
+                    if (SystemErrorUmu != null)
                     hashCode = hashCode * 59 + SystemErrorUmu.GetHashCode();
                 return hashCode;
             }

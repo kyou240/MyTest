@@ -32,7 +32,7 @@ namespace Simline2.Models
         /// <value>検索でヒットした漢字文字情報の件数。</value>
         [Required]
         [DataMember(Name="unlimitedRecordCount", EmitDefaultValue=false)]
-        public int UnlimitedRecordCount { get; set; }
+        public int? UnlimitedRecordCount { get; set; }
 
         /// <summary>
         /// 漢字文字情報（登記統一文字）のリスト。該当する漢字の件数が50件を超える場合、リストには50件分の情報まで格納する。
@@ -47,7 +47,7 @@ namespace Simline2.Models
         /// <value>最終検索単位数。検索結果を50で割り、切り上げた値を返却する。</value>
         [Required]
         [DataMember(Name="lastPage", EmitDefaultValue=false)]
-        public int LastPage { get; set; }
+        public int? LastPage { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -98,7 +98,7 @@ namespace Simline2.Models
             return 
                 (
                     UnlimitedRecordCount == other.UnlimitedRecordCount ||
-                    
+                    UnlimitedRecordCount != null &&
                     UnlimitedRecordCount.Equals(other.UnlimitedRecordCount)
                 ) && 
                 (
@@ -109,7 +109,7 @@ namespace Simline2.Models
                 ) && 
                 (
                     LastPage == other.LastPage ||
-                    
+                    LastPage != null &&
                     LastPage.Equals(other.LastPage)
                 );
         }
@@ -124,11 +124,11 @@ namespace Simline2.Models
             {
                 var hashCode = 41;
                 // Suitable nullity checks etc, of course :)
-                    
+                    if (UnlimitedRecordCount != null)
                     hashCode = hashCode * 59 + UnlimitedRecordCount.GetHashCode();
                     if (CharacterInfos != null)
                     hashCode = hashCode * 59 + CharacterInfos.GetHashCode();
-                    
+                    if (LastPage != null)
                     hashCode = hashCode * 59 + LastPage.GetHashCode();
                 return hashCode;
             }

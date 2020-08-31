@@ -385,7 +385,7 @@ namespace Simline2.Controllers
         [SwaggerResponse(statusCode: 400, type: typeof(HTTP400), description: "パラメータに誤りがある場合等にリクエストエラーを返却する。 ")]
         [SwaggerResponse(statusCode: 401, type: typeof(HTTP401), description: "ユーザIDやパスワードに誤りがある場合等に認証エラーを返却する。 ")]
         [SwaggerResponse(statusCode: 404, type: typeof(HTTP404), description: "指定された申請番号の申請案件がない場合やお知らせがない場合等に存在エラーを返却する。 ")]
-        public virtual IActionResult ApplicationsShinseiBangoOshiraseOshiraseTsubanJsonGet([FromRoute][Required][RegularExpression("^[0-9]{17}$")]string shinseiBango, [FromRoute][Required]int oshiraseTsuban)
+        public virtual IActionResult ApplicationsShinseiBangoOshiraseOshiraseTsubanJsonGet([FromRoute][Required][RegularExpression("^[0-9]{17}$")]string shinseiBango, [FromRoute][Required]int? oshiraseTsuban)
         { 
 
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
@@ -424,7 +424,7 @@ namespace Simline2.Controllers
         [SwaggerResponse(statusCode: 400, type: typeof(HTTP400), description: "パラメータに誤りがある場合等にリクエストエラーを返却する。 ")]
         [SwaggerResponse(statusCode: 401, type: typeof(HTTP401), description: "ユーザIDやパスワードに誤りがある場合等に認証エラーを返却する。 ")]
         [SwaggerResponse(statusCode: 404, type: typeof(HTTP404), description: "指定された申請番号の申請案件がない場合やお知らせがない場合等に存在エラーを返却する。 ")]
-        public virtual IActionResult ApplicationsShinseiBangoOshiraseTempuOshiraseTsubanJsonGet([FromRoute][Required][RegularExpression("^[0-9]{17}$")]string shinseiBango, [FromRoute][Required]int oshiraseTsuban)
+        public virtual IActionResult ApplicationsShinseiBangoOshiraseTempuOshiraseTsubanJsonGet([FromRoute][Required][RegularExpression("^[0-9]{17}$")]string shinseiBango, [FromRoute][Required]int? oshiraseTsuban)
         { 
 
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...

@@ -39,14 +39,14 @@ namespace Simline2.Models
         /// <value>納付状況：  - 0 ・・・ 未登録 - 1 ・・・ 未納付 - 2 ・・・ 納付済み - 3 ・・・ 納付期限切れ - 4 ・・・ 納付取消済み </value>
         [RegularExpression("/^[0-4]$/")]
         [DataMember(Name="nofuJokyo", EmitDefaultValue=false)]
-        public int NofuJokyo { get; set; }
+        public int? NofuJokyo { get; set; }
 
         /// <summary>
         /// 納付日時
         /// </summary>
         /// <value>納付日時</value>
         [DataMember(Name="nofuNichiji", EmitDefaultValue=false)]
-        public DateTime NofuNichiji { get; set; }
+        public DateTime? NofuNichiji { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -102,7 +102,7 @@ namespace Simline2.Models
                 ) && 
                 (
                     NofuJokyo == other.NofuJokyo ||
-                    
+                    NofuJokyo != null &&
                     NofuJokyo.Equals(other.NofuJokyo)
                 ) && 
                 (
@@ -124,7 +124,7 @@ namespace Simline2.Models
                 // Suitable nullity checks etc, of course :)
                     if (EncryptedNofuJoho != null)
                     hashCode = hashCode * 59 + EncryptedNofuJoho.GetHashCode();
-                    
+                    if (NofuJokyo != null)
                     hashCode = hashCode * 59 + NofuJokyo.GetHashCode();
                     if (NofuNichiji != null)
                     hashCode = hashCode * 59 + NofuNichiji.GetHashCode();

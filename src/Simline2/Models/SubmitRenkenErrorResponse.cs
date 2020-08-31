@@ -32,7 +32,7 @@ namespace Simline2.Models
         /// <value>HTTPステータスコード</value>
         [Required]
         [DataMember(Name="status", EmitDefaultValue=false)]
-        public int Status { get; set; }
+        public int? Status { get; set; }
 
         /// <summary>
         /// エラー名称
@@ -56,7 +56,7 @@ namespace Simline2.Models
         /// <value>エラーコード：  - 1・・・添付ファイルの数が制限を超えている   - 2・・・申請データに含まれるファイルのサイズが制限を超えている   - 3・・・申請データのファイルサイズが制限を超えている   - 4・・・申請データにコンピュータ・ウィルスが含まれていた   - 5・・・連件申請のパラメータが不正   - 6・・・登記所コードの形式が不正   - 7・・・手続きが無効   - 8・・・非常時運用のため、送信された申請案件を受け付けられない   - 9・・・申請データのファイル名の長さが制限を超えている   - 10・・・index.rdf内初回申請番号が不正   - 11・・・同時申請のパラメータが不正（この処理では返却しない）   - 12・・・同時申請対象の申請データの組み合わせが不正（この処理では返却しない）   - 13・・・申請書様式が存在しないか、ファイル名が不正 </value>
         [Required]
         [DataMember(Name="errorCode", EmitDefaultValue=false)]
-        public int ErrorCode { get; set; }
+        public int? ErrorCode { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -108,7 +108,7 @@ namespace Simline2.Models
             return 
                 (
                     Status == other.Status ||
-                    
+                    Status != null &&
                     Status.Equals(other.Status)
                 ) && 
                 (
@@ -123,7 +123,7 @@ namespace Simline2.Models
                 ) && 
                 (
                     ErrorCode == other.ErrorCode ||
-                    
+                    ErrorCode != null &&
                     ErrorCode.Equals(other.ErrorCode)
                 );
         }
@@ -138,13 +138,13 @@ namespace Simline2.Models
             {
                 var hashCode = 41;
                 // Suitable nullity checks etc, of course :)
-                    
+                    if (Status != null)
                     hashCode = hashCode * 59 + Status.GetHashCode();
                     if (Title != null)
                     hashCode = hashCode * 59 + Title.GetHashCode();
                     if (ErrorMessage != null)
                     hashCode = hashCode * 59 + ErrorMessage.GetHashCode();
-                    
+                    if (ErrorCode != null)
                     hashCode = hashCode * 59 + ErrorCode.GetHashCode();
                 return hashCode;
             }

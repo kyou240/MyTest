@@ -47,14 +47,14 @@ namespace Simline2.Models
         /// </summary>
         /// <value>納付額</value>
         [DataMember(Name="nofuGaku", EmitDefaultValue=false)]
-        public long NofuGaku { get; set; }
+        public long? NofuGaku { get; set; }
 
         /// <summary>
         /// 納付情報発行日時
         /// </summary>
         /// <value>納付情報発行日時</value>
         [DataMember(Name="nofuJohoHakkoNichiji", EmitDefaultValue=false)]
-        public DateTime NofuJohoHakkoNichiji { get; set; }
+        public DateTime? NofuJohoHakkoNichiji { get; set; }
 
         /// <summary>
         /// 納付状況：  - 0 ・・・ 未登録 - 1 ・・・ 未納付 - 2 ・・・ 納付済み - 3 ・・・ 納付期限切れ - 4 ・・・ 納付取消済み 
@@ -63,21 +63,21 @@ namespace Simline2.Models
         [Required]
         [RegularExpression("/^[0-4]$/")]
         [DataMember(Name="nofuJokyo", EmitDefaultValue=false)]
-        public int NofuJokyo { get; set; }
+        public int? NofuJokyo { get; set; }
 
         /// <summary>
         /// 納付期間最終年月日
         /// </summary>
         /// <value>納付期間最終年月日</value>
         [DataMember(Name="nofuKikanSaishuNengappi", EmitDefaultValue=false)]
-        public DateTime NofuKikanSaishuNengappi { get; set; }
+        public DateTime? NofuKikanSaishuNengappi { get; set; }
 
         /// <summary>
         /// 納付済み通知日時。  供託申請の場合、利用者が納付を行った時点の領収年月日を返却する（時分秒は「00:00:00」で返却する）  その他申請の場合、歳入金電子納付システムから領収済み通知を受けた日時を返却する（利用者が納付を行った時点の日時ではないことに留意すること）  ※納付済みでない場合、納付済み通知日時は返却しない。 
         /// </summary>
         /// <value>納付済み通知日時。  供託申請の場合、利用者が納付を行った時点の領収年月日を返却する（時分秒は「00:00:00」で返却する）  その他申請の場合、歳入金電子納付システムから領収済み通知を受けた日時を返却する（利用者が納付を行った時点の日時ではないことに留意すること）  ※納付済みでない場合、納付済み通知日時は返却しない。 </value>
         [DataMember(Name="nofuNichiji", EmitDefaultValue=false)]
-        public DateTime NofuNichiji { get; set; }
+        public DateTime? NofuNichiji { get; set; }
 
         /// <summary>
         /// 収納機関番号
@@ -151,7 +151,7 @@ namespace Simline2.Models
                 ) && 
                 (
                     NofuGaku == other.NofuGaku ||
-                    
+                    NofuGaku != null &&
                     NofuGaku.Equals(other.NofuGaku)
                 ) && 
                 (
@@ -161,7 +161,7 @@ namespace Simline2.Models
                 ) && 
                 (
                     NofuJokyo == other.NofuJokyo ||
-                    
+                    NofuJokyo != null &&
                     NofuJokyo.Equals(other.NofuJokyo)
                 ) && 
                 (
@@ -195,11 +195,11 @@ namespace Simline2.Models
                     hashCode = hashCode * 59 + KakuninBango.GetHashCode();
                     if (NofuBango != null)
                     hashCode = hashCode * 59 + NofuBango.GetHashCode();
-                    
+                    if (NofuGaku != null)
                     hashCode = hashCode * 59 + NofuGaku.GetHashCode();
                     if (NofuJohoHakkoNichiji != null)
                     hashCode = hashCode * 59 + NofuJohoHakkoNichiji.GetHashCode();
-                    
+                    if (NofuJokyo != null)
                     hashCode = hashCode * 59 + NofuJokyo.GetHashCode();
                     if (NofuKikanSaishuNengappi != null)
                     hashCode = hashCode * 59 + NofuKikanSaishuNengappi.GetHashCode();

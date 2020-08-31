@@ -67,7 +67,7 @@ namespace Simline2.Models
         /// <value>証明書検証結果：  - 0 ・・・ 認証パスの構築が成功し検証結果が正しい場合 - 101 ・・・   認証パス構築不可の場合 - 202 ・・・   認証パス中に署名の誤った証明書が含まれる場合 - 203 ・・・   認証パス中に失効した証明書が含まれる場合 - 204 ・・・   認証パス中にPolicy MappingsがAny-Policy に設定された証明書が含まれる場合 - 205 ・・・   認証パス中にGPKIの各種制約に違反した証明書が含まれる場合 - 206 ・・・   認証パスにOCSPでのCertStatusがunknownと応答される証明書が含まれる場合 - 301 ・・・   証明書検証要求に推奨していない暗号アルゴリズムの検証対象証明書が含まれる場合 - 302 ・・・   証明書検証要求に推奨していない暗号アルゴリズムの中間証明書もしくはトラストアンカーの証明書、又は、その両方が含まれる場合 - 801 ・・・   商業登記の変更登記受付による保留中の場合 - 802 ・・・   商業登記の休止申請受付による保留中の場合 - 803 ・・・   商業登記の変更登記受付・休止申請受付による保留中の場合 - 901 ・・・   GPKIの証明書検証サーバ側で要求の受付けを拒否した場合 - 902 ・・・   GPKIの証明書検証サーバにて要求がタイムアウトとなった場合 - 903 ・・・   証明書検証サーバにてタイムアウトが発生した場合 - 999 ・・・   証明書に問題がある場合 </value>
         [Required]
         [DataMember(Name="verifyResult", EmitDefaultValue=false)]
-        public int VerifyResult { get; set; }
+        public int? VerifyResult { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -146,7 +146,7 @@ namespace Simline2.Models
                 ) && 
                 (
                     VerifyResult == other.VerifyResult ||
-                    
+                    VerifyResult != null &&
                     VerifyResult.Equals(other.VerifyResult)
                 );
         }
@@ -171,7 +171,7 @@ namespace Simline2.Models
                     hashCode = hashCode * 59 + IssuerAltName.GetHashCode();
                     if (SubjectAltName != null)
                     hashCode = hashCode * 59 + SubjectAltName.GetHashCode();
-                    
+                    if (VerifyResult != null)
                     hashCode = hashCode * 59 + VerifyResult.GetHashCode();
                 return hashCode;
             }

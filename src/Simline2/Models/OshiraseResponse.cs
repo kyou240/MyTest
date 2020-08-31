@@ -33,7 +33,7 @@ namespace Simline2.Models
         [Required]
         [RegularExpression("/^[1-2]$/")]
         [DataMember(Name="oshiraseKubun", EmitDefaultValue=false)]
-        public int OshiraseKubun { get; set; }
+        public int? OshiraseKubun { get; set; }
 
         /// <summary>
         /// お知らせ内容
@@ -49,7 +49,7 @@ namespace Simline2.Models
         /// <value>お知らせ発行日時</value>
         [Required]
         [DataMember(Name="oshiraseNichiji", EmitDefaultValue=false)]
-        public DateTime OshiraseNichiji { get; set; }
+        public DateTime? OshiraseNichiji { get; set; }
 
         /// <summary>
         /// 添付ファイルの有無。添付ファイルがある時はtrueを、それ以外の時はfalseを返す。
@@ -57,7 +57,7 @@ namespace Simline2.Models
         /// <value>添付ファイルの有無。添付ファイルがある時はtrueを、それ以外の時はfalseを返す。</value>
         [Required]
         [DataMember(Name="tempuFileUmu", EmitDefaultValue=false)]
-        public bool TempuFileUmu { get; set; }
+        public bool? TempuFileUmu { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -109,7 +109,7 @@ namespace Simline2.Models
             return 
                 (
                     OshiraseKubun == other.OshiraseKubun ||
-                    
+                    OshiraseKubun != null &&
                     OshiraseKubun.Equals(other.OshiraseKubun)
                 ) && 
                 (
@@ -124,7 +124,7 @@ namespace Simline2.Models
                 ) && 
                 (
                     TempuFileUmu == other.TempuFileUmu ||
-                    
+                    TempuFileUmu != null &&
                     TempuFileUmu.Equals(other.TempuFileUmu)
                 );
         }
@@ -139,13 +139,13 @@ namespace Simline2.Models
             {
                 var hashCode = 41;
                 // Suitable nullity checks etc, of course :)
-                    
+                    if (OshiraseKubun != null)
                     hashCode = hashCode * 59 + OshiraseKubun.GetHashCode();
                     if (OshiraseNaiyo != null)
                     hashCode = hashCode * 59 + OshiraseNaiyo.GetHashCode();
                     if (OshiraseNichiji != null)
                     hashCode = hashCode * 59 + OshiraseNichiji.GetHashCode();
-                    
+                    if (TempuFileUmu != null)
                     hashCode = hashCode * 59 + TempuFileUmu.GetHashCode();
                 return hashCode;
             }

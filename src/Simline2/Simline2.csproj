@@ -7,7 +7,7 @@
     <PreserveCompilationContext>true</PreserveCompilationContext>
     <AssemblyName>Simline2</AssemblyName>
     <PackageId>Simline2</PackageId>
-    <UserSecretsId>e085ba57-7a67-4912-987a-5f89600c8fb3</UserSecretsId>
+    <UserSecretsId>bd254470-e0d8-4bd0-af47-85de02c3a80f</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <DockerfileContext>..\..</DockerfileContext>
     <Platforms>AnyCPU;x86</Platforms>
@@ -20,19 +20,14 @@
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="5.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="5.0.0" />
   </ItemGroup>
+  <ItemGroup><!--<DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.0" />-->
+  
+    <Folder Include="libs\" />
+    <Folder Include="MiddleWares\" />
+  </ItemGroup>
   <ItemGroup>
     <Reference Include="SlDataProvider">
       <HintPath>libs\SlDataProvider.dll</HintPath>
     </Reference>
-  </ItemGroup>
-  <ItemGroup><!--<DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.0" />-->
-  
-    <None Update="libs\SlDataProvider.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  
-    <None Update="slserver.pfx">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
 </Project>

@@ -31,7 +31,7 @@ namespace Simline2.Models
         /// </summary>
         /// <value>到達日時</value>
         [DataMember(Name="totatsuNichiji", EmitDefaultValue=false)]
-        public DateTime TotatsuNichiji { get; set; }
+        public DateTime? TotatsuNichiji { get; set; }
 
         /// <summary>
         /// 到達通知ファイル。HTMLファイル。
@@ -47,7 +47,7 @@ namespace Simline2.Models
         /// <value>受付結果：  - 0・・・正常   - 1・・・形式チェックエラー   - 2・・・手続きIDエラー   - 3・・・大量請求制限エラー   - 4・・・添付ファイル拡張子エラー   - 5・・・添付ファイル必須エラー   - 6・・・提出先エラー   - 7・・・初回申請番号エラー   - 8・・・初回申請番号処理状況エラー   - 9・・・署名検証エラー   - 10・・・証明書検証エラー   - 11・・・登記権利者特定エラー </value>
         [Required]
         [DataMember(Name="uketsukeKekka", EmitDefaultValue=false)]
-        public int UketsukeKekka { get; set; }
+        public int? UketsukeKekka { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -108,7 +108,7 @@ namespace Simline2.Models
                 ) && 
                 (
                     UketsukeKekka == other.UketsukeKekka ||
-                    
+                    UketsukeKekka != null &&
                     UketsukeKekka.Equals(other.UketsukeKekka)
                 );
         }
@@ -127,7 +127,7 @@ namespace Simline2.Models
                     hashCode = hashCode * 59 + TotatsuNichiji.GetHashCode();
                     if (TotatsuTsuchi != null)
                     hashCode = hashCode * 59 + TotatsuTsuchi.GetHashCode();
-                    
+                    if (UketsukeKekka != null)
                     hashCode = hashCode * 59 + UketsukeKekka.GetHashCode();
                 return hashCode;
             }

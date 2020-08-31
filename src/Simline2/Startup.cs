@@ -11,7 +11,6 @@
 using System;
 using System.IO;
 using System.Reflection;
-using System.Runtime.Serialization;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -105,6 +104,7 @@ namespace Simline2
                 });
             services
                 .AddSwaggerGenNewtonsoftSupport();
+
             //セッションサービス
             services.AddDistributedMemoryCache();
             services.AddSession(options =>

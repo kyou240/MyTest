@@ -32,7 +32,7 @@ namespace Simline2.Models
         /// <value>意思。連件申請を確定する場合はtrue、取下げる場合はfalseを設定する。</value>
         [Required]
         [DataMember(Name="decision", EmitDefaultValue=false)]
-        public bool Decision { get; set; }
+        public bool? Decision { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -81,7 +81,7 @@ namespace Simline2.Models
             return 
                 (
                     Decision == other.Decision ||
-                    
+                    Decision != null &&
                     Decision.Equals(other.Decision)
                 );
         }
@@ -96,7 +96,7 @@ namespace Simline2.Models
             {
                 var hashCode = 41;
                 // Suitable nullity checks etc, of course :)
-                    
+                    if (Decision != null)
                     hashCode = hashCode * 59 + Decision.GetHashCode();
                 return hashCode;
             }

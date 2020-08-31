@@ -27,14 +27,14 @@ namespace Simline2
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                   webBuilder.UseStartup<Startup>()
-                             .UseKestrel((context, serverOptions) => {
-                                 serverOptions.Configure(context.Configuration.GetSection("Kestrel"))
-                                 .Endpoint("Https", listenOptions =>
-                                 {
-                                     listenOptions.HttpsOptions.SslProtocols = SslProtocols.Tls12 | SslProtocols.Tls13;
-                                 });
-                             });
+                    webBuilder.UseStartup<Startup>()
+                              .UseKestrel((context, serverOptions) => {
+                                  serverOptions.Configure(context.Configuration.GetSection("Kestrel"))
+                                  .Endpoint("Https", listenOptions =>
+                                  {
+                                      listenOptions.HttpsOptions.SslProtocols = SslProtocols.Tls12 | SslProtocols.Tls13;
+                                  });
+                              });
                 });
     }
 }

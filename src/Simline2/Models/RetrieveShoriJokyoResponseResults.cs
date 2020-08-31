@@ -32,7 +32,7 @@ namespace Simline2.Models
         /// <value>納付状況：    - 0 ・・・ 未登録   - 1 ・・・ 未納付   - 2 ・・・ 納付済み   - 3 ・・・ 納付期限切れ   - 4 ・・・ 納付取消済み </value>
         [RegularExpression("/^[0-4]$/")]
         [DataMember(Name="nofuJokyo", EmitDefaultValue=false)]
-        public int NofuJokyo { get; set; }
+        public int? NofuJokyo { get; set; }
 
         /// <summary>
         /// 申請案件の最終更新日時
@@ -40,7 +40,7 @@ namespace Simline2.Models
         /// <value>申請案件の最終更新日時</value>
         [Required]
         [DataMember(Name="saishuKoshinNichiji", EmitDefaultValue=false)]
-        public DateTime SaishuKoshinNichiji { get; set; }
+        public DateTime? SaishuKoshinNichiji { get; set; }
 
         /// <summary>
         /// 申請番号
@@ -58,7 +58,7 @@ namespace Simline2.Models
         [Required]
         [RegularExpression("/^[0-9]{2}$/")]
         [DataMember(Name="shoriJokyo", EmitDefaultValue=false)]
-        public int ShoriJokyo { get; set; }
+        public int? ShoriJokyo { get; set; }
 
         /// <summary>
         /// お知らせの通数。登記識別情報通知・未失効照会の手続に対して本照会を行った場合、お知らせの通数には登記識別情報通知・未失効回答取得のお知らせは含まれない。
@@ -67,14 +67,14 @@ namespace Simline2.Models
         [Required]
         [Range(0, 9999)]
         [DataMember(Name="tsusu", EmitDefaultValue=false)]
-        public int Tsusu { get; set; }
+        public int? Tsusu { get; set; }
 
         /// <summary>
         /// 受付年月日
         /// </summary>
         /// <value>受付年月日</value>
         [DataMember(Name="uketsukeNengappi", EmitDefaultValue=false)]
-        public DateTime UketsukeNengappi { get; set; }
+        public DateTime? UketsukeNengappi { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -128,7 +128,7 @@ namespace Simline2.Models
             return 
                 (
                     NofuJokyo == other.NofuJokyo ||
-                    
+                    NofuJokyo != null &&
                     NofuJokyo.Equals(other.NofuJokyo)
                 ) && 
                 (
@@ -143,12 +143,12 @@ namespace Simline2.Models
                 ) && 
                 (
                     ShoriJokyo == other.ShoriJokyo ||
-                    
+                    ShoriJokyo != null &&
                     ShoriJokyo.Equals(other.ShoriJokyo)
                 ) && 
                 (
                     Tsusu == other.Tsusu ||
-                    
+                    Tsusu != null &&
                     Tsusu.Equals(other.Tsusu)
                 ) && 
                 (
@@ -168,15 +168,15 @@ namespace Simline2.Models
             {
                 var hashCode = 41;
                 // Suitable nullity checks etc, of course :)
-                    
+                    if (NofuJokyo != null)
                     hashCode = hashCode * 59 + NofuJokyo.GetHashCode();
                     if (SaishuKoshinNichiji != null)
                     hashCode = hashCode * 59 + SaishuKoshinNichiji.GetHashCode();
                     if (ShinseiBango != null)
                     hashCode = hashCode * 59 + ShinseiBango.GetHashCode();
-                    
+                    if (ShoriJokyo != null)
                     hashCode = hashCode * 59 + ShoriJokyo.GetHashCode();
-                    
+                    if (Tsusu != null)
                     hashCode = hashCode * 59 + Tsusu.GetHashCode();
                     if (UketsukeNengappi != null)
                     hashCode = hashCode * 59 + UketsukeNengappi.GetHashCode();

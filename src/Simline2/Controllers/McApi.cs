@@ -43,7 +43,7 @@ namespace Simline2.Controllers
         [SwaggerResponse(statusCode: 200, type: typeof(CharacterKosekiResponse), description: "Parametersから取得した各情報を元に処理を実施し、正常終了した場合、検索結果を戸籍統一文字検索レスポンスに設定し返却する。")]
         [SwaggerResponse(statusCode: 400, type: typeof(HTTP400), description: "パラメータに誤りがある場合等にリクエストエラーを返却する。 ")]
         [SwaggerResponse(statusCode: 401, type: typeof(HTTP401), description: "ユーザIDやパスワードに誤りがある場合等に認証エラーを返却する。 ")]
-        public virtual IActionResult McKosekiCodeJsonGet([FromQuery][Required()][Range(0, 1)]int charset, [FromQuery][Required()][RegularExpression("^([0-9]{6}|[0-9]{1,5}(-[12])?)$")]string code)
+        public virtual IActionResult McKosekiCodeJsonGet([FromQuery][Required()][Range(0, 1)]int? charset, [FromQuery][Required()][RegularExpression("^([0-9]{6}|[0-9]{1,5}(-[12])?)$")]string code)
         { 
 
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
@@ -83,7 +83,7 @@ namespace Simline2.Controllers
         [SwaggerResponse(statusCode: 200, type: typeof(CharacterKosekiResponse), description: "Parametersから取得した各情報を元に処理を実施し、正常終了した場合、検索結果を戸籍統一文字検索レスポンスに設定し返却する。")]
         [SwaggerResponse(statusCode: 400, type: typeof(HTTP400), description: "パラメータに誤りがある場合等にリクエストエラーを返却する。 ")]
         [SwaggerResponse(statusCode: 401, type: typeof(HTTP401), description: "ユーザIDやパスワードに誤りがある場合等に認証エラーを返却する。 ")]
-        public virtual IActionResult McKosekiYomiJsonGet([FromQuery][Required()]bool kakusuMargin, [FromQuery]string yomi1, [FromQuery]string yomi2, [FromQuery]string yomi3, [FromQuery][RegularExpression("^AND$|^OR$")]string yomisOperant, [FromQuery][RegularExpression("^[0-9]+$")]string kakusu, [FromQuery][RegularExpression("^[0-9]{3}$")]string radicalGroupCode)
+        public virtual IActionResult McKosekiYomiJsonGet([FromQuery][Required()]bool? kakusuMargin, [FromQuery]string yomi1, [FromQuery]string yomi2, [FromQuery]string yomi3, [FromQuery][RegularExpression("^AND$|^OR$")]string yomisOperant, [FromQuery][RegularExpression("^[0-9]+$")]string kakusu, [FromQuery][RegularExpression("^[0-9]{3}$")]string radicalGroupCode)
         { 
 
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
@@ -118,7 +118,7 @@ namespace Simline2.Controllers
         [SwaggerResponse(statusCode: 200, type: typeof(CharacterTokiResponse), description: "Parametersから取得した各情報を元に処理を実施し、正常終了した場合、検索結果を登記統一文字検索レスポンスに設定し返却する。")]
         [SwaggerResponse(statusCode: 400, type: typeof(HTTP400), description: "パラメータに誤りがある場合等にリクエストエラーを返却する。 ")]
         [SwaggerResponse(statusCode: 401, type: typeof(HTTP401), description: "ユーザIDやパスワードに誤りがある場合等に認証エラーを返却する。 ")]
-        public virtual IActionResult McTokiCodeJsonGet([FromQuery][Required()][Range(0, 1)]int charset, [FromQuery][Required()][RegularExpression("^([0-9]{6}|[0-9]{1,5}(-[12])?)$")]string code)
+        public virtual IActionResult McTokiCodeJsonGet([FromQuery][Required()][Range(0, 1)]int? charset, [FromQuery][Required()][RegularExpression("^([0-9]{6}|[0-9]{1,5}(-[12])?)$")]string code)
         { 
 
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
@@ -159,7 +159,7 @@ namespace Simline2.Controllers
         [SwaggerResponse(statusCode: 200, type: typeof(CharacterTokiResponse), description: "Parametersから取得した各情報を元に処理を実施し、正常終了した場合、検索結果を登記統一文字検索レスポンスに設定し返却する。")]
         [SwaggerResponse(statusCode: 400, type: typeof(HTTP400), description: "パラメータに誤りがある場合等にリクエストエラーを返却する。 ")]
         [SwaggerResponse(statusCode: 401, type: typeof(HTTP401), description: "ユーザIDやパスワードに誤りがある場合等に認証エラーを返却する。 ")]
-        public virtual IActionResult McTokiYomiJsonGet([FromQuery][Required()]bool kakusuMargin, [FromQuery][Required()]int searchPage, [FromQuery]string yomi1, [FromQuery]string yomi2, [FromQuery]string yomi3, [FromQuery][RegularExpression("^AND$|^OR$")]string yomisOperant, [FromQuery][RegularExpression("^[0-9]+$")]string kakusu, [FromQuery][RegularExpression("^[0-9]{3}$")]string radicalGroupCode)
+        public virtual IActionResult McTokiYomiJsonGet([FromQuery][Required()]bool? kakusuMargin, [FromQuery][Required()]int? searchPage, [FromQuery]string yomi1, [FromQuery]string yomi2, [FromQuery]string yomi3, [FromQuery][RegularExpression("^AND$|^OR$")]string yomisOperant, [FromQuery][RegularExpression("^[0-9]+$")]string kakusu, [FromQuery][RegularExpression("^[0-9]{3}$")]string radicalGroupCode)
         { 
 
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...

@@ -32,7 +32,7 @@ namespace Simline2.Models
         /// <value>申請案件の最終更新日時。最後の申請案件の送信時に全ての申請案件分値が設定される。</value>
         [Required]
         [DataMember(Name="saishuKoshinNichiji", EmitDefaultValue=false)]
-        public DateTime SaishuKoshinNichiji { get; set; }
+        public DateTime? SaishuKoshinNichiji { get; set; }
 
         /// <summary>
         /// 申請案件の申請番号。最後の申請案件の送信時に全ての申請案件分値が設定される。

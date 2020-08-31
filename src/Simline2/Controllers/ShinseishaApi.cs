@@ -18,9 +18,8 @@ using Swashbuckle.AspNetCore.SwaggerGen;
 using Newtonsoft.Json;
 using Simline2.Attributes;
 using Simline2.Models;
-using System.Security.Claims;
 using SlDataProvider;
-using Microsoft.AspNetCore.Http;
+using System.Security.Claims;
 
 namespace Simline2.Controllers
 { 
@@ -71,71 +70,20 @@ namespace Simline2.Controllers
                 ShimeiKana = shinseisha.SHIMEIKANA
             };
 
-            /*
-            if (null == this.HttpContext.Session.GetString("申請者ID"))
-            {
-                //セッションにユーザーIDを保存
-                this.HttpContext.Session.SetString("申請者ID", userid);
-            }
-
-            DateTime yukoKigembi = DateTime.Today.AddDays(shinseisha.YUKOKIGEN);
-            DateTime now = DateTime.Now;
-
-            string resultJson = "";
-            object result = null;
-
-            if (!shinseisha.ACCTLOCK && now < yukoKigembi)
-            {
-                resultJson = string.Format("{{\r\n  \"shimei\" : \"{0}\",\r\n  \"shimeiKana\" : \"{1}\"\r\n}}", shinseisha.SHIMEI, shinseisha.SHIMEIKANA);
-                result = resultJson != null ? JsonConvert.DeserializeObject<ShinseishaResponse>(resultJson) : default;
-
-                //パスワード更新日計算
-                if ((yukoKigembi.AddDays(-180) <= now && now < yukoKigembi.AddDays(-90)) ||
-                    (yukoKigembi.AddDays(-90) <= now && now < yukoKigembi.AddDays(-30)) ||
-                    (yukoKigembi.AddDays(-30) <= now && now < yukoKigembi.AddDays(-7)) ||
-                    yukoKigembi.AddDays(-7) <= now)
-                {
-                    this.HttpContext.Response.Headers["X-PasswordKoushinTsuchi"] = "1";
-                    this.HttpContext.Response.Headers["X-PasswordYukoKigen"] = yukoKigembi.AddSeconds(-1).ToString("yyyy.MM.dd HH:mm:ss", new System.Globalization.CultureInfo("ja-JP"));
-                }
-                else
-                {
-                    this.HttpContext.Response.Headers["X-PasswordKoushinTsuchi"] = "0";
-                }
-            }
-            else
-            {
-                this.HttpContext.Session.Clear();
-
-                this.HttpContext.Response.StatusCode = StatusCodes.Status401Unauthorized;
-                string errorMessage = "認証に失敗しました。";
-                int status = 401;
-                string title = "Unauthorized";
-
-                resultJson = string.Format("{{\r\n  \"errorMessage\" : \"{0}\",\r\n  \"status\" : {1}, \r\n  \"title\" : \"{2}\"\r\n}}", errorMessage, status, title);
-                result = resultJson != null ? JsonConvert.DeserializeObject<HTTP401>(resultJson) : default;
-
-                if (shinseisha.ACCTLOCK)
-                {
-                    this.HttpContext.Response.Headers["X-LoginError"] = "ACCOUNT_LOCK_ERROR";
-                }
-                if (shinseisha.YUKOKIGEN <= 0)
-                {
-                    this.HttpContext.Response.Headers["X-LoginError"] = "PASSWORD_YUKO_KIGEN_ERROR";
-                }
-            }
-
-            //string exampleJson = null;
-            //exampleJson = "{\r\n  \"shimeiKana\" : \"ホウムタロウ\",\r\n  \"shimei\" : \"法務太郎\"\r\n}";
-            
-            //var example = exampleJson != null
-            //? JsonConvert.DeserializeObject<ShinseishaResponse>(exampleJson)
-            //: default(ShinseishaResponse);
-            //TODO: Change the data returned
-            */
             result ??= default;
             //TODO: Change the data returned
             return new ObjectResult(result);
+
+            /*
+            string exampleJson = null;
+            exampleJson = "{\r\n  \"shimeiKana\" : \"ホウムタロウ\",\r\n  \"shimei\" : \"法務太郎\"\r\n}";
+            
+            var example = exampleJson != null
+            ? JsonConvert.DeserializeObject<ShinseishaResponse>(exampleJson)
+            : default(ShinseishaResponse);
+            //TODO: Change the data returned
+            return new ObjectResult(example);
+            */
         }
     }
 }

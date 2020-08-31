@@ -32,7 +32,7 @@ namespace Simline2.Models
         /// <value>処理が正常終了した場合はtrue、そうでない場合はfalseを返す。</value>
         [Required]
         [DataMember(Name="result", EmitDefaultValue=false)]
-        public bool Result { get; set; }
+        public bool? Result { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -81,7 +81,7 @@ namespace Simline2.Models
             return 
                 (
                     Result == other.Result ||
-                    
+                    Result != null &&
                     Result.Equals(other.Result)
                 );
         }
@@ -96,7 +96,7 @@ namespace Simline2.Models
             {
                 var hashCode = 41;
                 // Suitable nullity checks etc, of course :)
-                    
+                    if (Result != null)
                     hashCode = hashCode * 59 + Result.GetHashCode();
                 return hashCode;
             }

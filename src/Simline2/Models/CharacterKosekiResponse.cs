@@ -33,7 +33,7 @@ namespace Simline2.Models
         [Required]
         [Range(0, 51)]
         [DataMember(Name="unlimitedRecordCount", EmitDefaultValue=false)]
-        public int UnlimitedRecordCount { get; set; }
+        public int? UnlimitedRecordCount { get; set; }
 
         /// <summary>
         /// 漢字文字情報のリスト。該当する漢字の件数が50件を超える場合、リストには50件分の情報まで格納する。
@@ -90,7 +90,7 @@ namespace Simline2.Models
             return 
                 (
                     UnlimitedRecordCount == other.UnlimitedRecordCount ||
-                    
+                    UnlimitedRecordCount != null &&
                     UnlimitedRecordCount.Equals(other.UnlimitedRecordCount)
                 ) && 
                 (
@@ -111,7 +111,7 @@ namespace Simline2.Models
             {
                 var hashCode = 41;
                 // Suitable nullity checks etc, of course :)
-                    
+                    if (UnlimitedRecordCount != null)
                     hashCode = hashCode * 59 + UnlimitedRecordCount.GetHashCode();
                     if (CharacterInfos != null)
                     hashCode = hashCode * 59 + CharacterInfos.GetHashCode();
